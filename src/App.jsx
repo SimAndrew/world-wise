@@ -10,11 +10,17 @@ export default function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<HomePage />} />
+				<Route index element={<HomePage />} />
 				<Route path="product" element={<Product />} />
 				<Route path="pricing" element={<Pricing />} />
 				<Route path="login" element={<Login />} />
-				<Route path="app" element={<AppLayout />} />
+				<Route path="app" element={<AppLayout />}>
+					<Route index element={<p>List of cities default</p>} />
+
+					<Route path="cities" element={<h1>List of cities</h1>} />
+					<Route path="countries" element={<h1>Countries</h1>} />
+					<Route path="form" element={<h1>Form</h1>} />
+				</Route>
 				<Route path="*" element={<PageNotFound />} />
 			</Routes>
 		</BrowserRouter>
