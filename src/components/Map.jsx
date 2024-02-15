@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
 	MapContainer,
 	TileLayer,
@@ -8,32 +8,25 @@ import {
 	useMap,
 	useMapEvents,
 } from 'react-leaflet';
+
 import { useCities } from '../contexts/CitiesContext.jsx';
 import { useGeolocation } from '../hooks/useGeolocation.jsx';
+import { useUrlPosition } from '../hooks/useUrlPosition.jsx';
 import Button from './Button.jsx';
+import { flagemojiToPNG } from '../flagemojiToPNG.jsx';
+
 import styles from './Map.module.css';
 
 function Map() {
 	const { cities } = useCities();
 	const [mapPosition, setMapPosition] = useState([40, 0]);
-	const [searchParams] = useSearchParams();
 	const {
 		isLoading: isLoadingPosition,
 		position: geolocationPosition,
 		getPosition,
 	} = useGeolocation();
 
-	const mapLat = searchParams.get('lat');
-	const mapLng = searchParams.get('lng');
-
-	const flagemojiToPNG = (flag) => {
-		let countryCode = Array.from(flag, (codeUnit) => codeUnit.codePointAt())
-			.map((char) => String.fromCharCode(char - 127397).toLowerCase())
-			.join('');
-		return (
-			<img src={`https://flagcdn.com/24x18/${countryCode}.png`} alt="flag" />
-		);
-	};
+	const [mapLat, mapLng] = useUrlPosition();
 
 	useEffect(
 		function () {

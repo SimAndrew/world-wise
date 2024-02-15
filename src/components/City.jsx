@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useCities } from '../contexts/CitiesContext.jsx';
 import Spinner from './Spinner.jsx';
 import BackButton from './BackButton.jsx';
+import { flagemojiToPNG } from '../flagemojiToPNG.jsx';
 import styles from './City.module.css';
 
 const formatDate = (date) =>
@@ -16,15 +17,6 @@ const formatDate = (date) =>
 function City() {
 	const { id } = useParams();
 	const { getCity, currentCity, isLoading } = useCities();
-
-	const flagemojiToPNG = (flag) => {
-		let countryCode = Array.from(flag, (codeUnit) => codeUnit.codePointAt())
-			.map((char) => String.fromCharCode(char - 127397).toLowerCase())
-			.join('');
-		return (
-			<img src={`https://flagcdn.com/24x18/${countryCode}.png`} alt="flag" />
-		);
-	};
 
 	useEffect(
 		function () {
