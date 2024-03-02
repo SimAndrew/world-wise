@@ -6,7 +6,7 @@ import {
 	useReducer,
 } from 'react';
 
-const BASE_URL = 'https://my-json-server.typicode.com/SimAndrew/world-wise/cities';
+const BASE_URL = 'http://localhost:8000';
 
 const CitiesContext = createContext();
 
